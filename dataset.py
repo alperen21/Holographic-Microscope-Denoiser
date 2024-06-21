@@ -28,9 +28,10 @@ class NoiseDataset(Dataset):
         image = cv2.imread(image_path)
         image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
         mask = get_combined_mask(mask_path, image.shape)
+        mask = cv2.cvtColor(mask, cv2.COLOR_BGR2RGB)
         
-        masked_image = overlay_mask_on_image(image, mask)
-        noise = cv2.subtract(image, masked_image)
+        
+        noise = overlay_mask_on_image(image, mask)
 
         if self.transform:
             image = self.transform(image)
